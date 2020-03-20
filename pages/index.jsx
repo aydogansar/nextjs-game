@@ -1,22 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Layout from "../components/Layout";
 import { connect } from "react-redux";
-import Todos from "../components/Todos";
+import Head from "next/head";
+import NameInput from "../components/NameInput";
+import { getUsers } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
 
-const Home = ({ todos }) => {
+const Home = () => {
+  const users = useSelector(state => state.users);
+  console.log(users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+
   return (
-    <React.Fragment>
+    <Layout>
+      <Head>
+        <title>Ana Sayfa</title>
+      </Head>
       <h1>Merhaba Burası anasayfa</h1>
-      <Todos />
-    </React.Fragment>
+      <NameInput />
+      <ul>
+        {users.map(user => {
+          return <li key={user.id}>{user.name}</li>;
+        })}
+      </ul>
+    </Layout>
   );
 };
-const mapStateToProps = state => {
-  return {
-    todos: state.todos
-  };
-};
-// const mapDispatchToProps = dispatch => {
-//   return dispatch(getTodos());
-// };
 
-export default connect(mapStateToProps)(Home);
+export default connect()(Home);

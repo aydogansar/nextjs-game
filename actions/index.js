@@ -1,1 +1,1 @@
-export * from "./todosActions.js";
+export { addUser, getUsers } from "./userActions.js";

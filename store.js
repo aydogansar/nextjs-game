@@ -2,15 +2,16 @@ import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
 //import reducer from "./reducers";
-import todosReducer from "./reducers/todosReducer";
+import userReducer from "./reducers/userReducer";
 
 export const initialState = {
-  todos: []
+  username: "",
+  users: []
 };
 
 export function initializeStore(initialState) {
   return createStore(
-    todosReducer,
+    userReducer,
     initialState,
     composeWithDevTools(applyMiddleware(thunkMiddleware))
   );

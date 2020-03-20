@@ -1,0 +1,10 @@
+{
+  "env": {
+    "API_KEY": "@api-key",
+    "AUTH_DOMAIN": "@auth-domain",
+    "DATABASE_URL": "@database-url",
+    "STORAGE_BUCKET": "@storage-bucket",
+    "MESSAGING_SENDER_ID": "@messaging-sender-id",
+    "APP_ID": "@app-id"
+  }
+}
