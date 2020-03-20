@@ -5,7 +5,7 @@ import thunkMiddleware from "redux-thunk";
 import todosReducer from "./reducers/todosReducer";
 
 export const initialState = {
-  todos: ["ahmet", "mehmet"]
+  todos: []
 };
 
 export function initializeStore(initialState) {
