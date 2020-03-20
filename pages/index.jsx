@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import { connect } from "react-redux";
 import Head from "next/head";
 import NameInput from "../components/NameInput";
-import { getUsers } from "../actions";
+import { getUsers } from "../actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {

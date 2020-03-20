@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addUser } from "../actions";
+import { addUser } from "../actions/UserActions";
 import { useDispatch } from "react-redux";
 
 const initialState = {
