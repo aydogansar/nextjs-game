@@ -9,14 +9,13 @@ export const addUser = username => async dispatch => {
     .add({
       name: username
     })
-    .then(() => {
+    .then(docRef => {
+      localStorage.setItem("userId", JSON.stringify(docRef.id));
       dispatch({
         type: ADD_USER,
-        username
+        username,
+        userId: docRef.id
       });
-    })
-    .catch(error => {
-      console.error("Error adding document: ", error);
     });
 };
 

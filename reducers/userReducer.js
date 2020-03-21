@@ -1,12 +1,12 @@
 import { ADD_USER } from "../actions/types";
-import { initialState } from "../store";
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state, action) => {
   switch (action.type) {
     case ADD_USER:
       return {
         ...state,
-        username: action.username
+        username: action.username,
+        userId: action.userId
       };
     case "GET_USERS":
       return {
