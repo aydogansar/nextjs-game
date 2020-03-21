@@ -10,7 +10,7 @@ export const addUser = username => async dispatch => {
       name: username
     })
     .then(docRef => {
-      localStorage.setItem("userId", JSON.stringify(docRef.id));
+      //localStorage.setItem("userId", JSON.stringify(docRef.id));
       dispatch({
         type: ADD_USER,
         username
