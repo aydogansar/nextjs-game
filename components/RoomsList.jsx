@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getRooms } from "../actions/roomActions";
-import { Badge, Table } from "reactstrap";
+import { Badge } from "reactstrap";
 
 const RoomsList = () => {
   const rooms = useSelector(state => state.rooms);

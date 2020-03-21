@@ -13,8 +13,7 @@ export const addUser = username => async dispatch => {
       localStorage.setItem("userId", JSON.stringify(docRef.id));
       dispatch({
         type: ADD_USER,
-        username,
-        userId: docRef.id
+        username
       });
     });
 };
