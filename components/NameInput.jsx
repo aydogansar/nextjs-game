@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addUser } from "../actions/userActions";
+import { addUser } from "../actions/UserActions";
 import { useDispatch } from "react-redux";
 import { Button } from "reactstrap";
 import { useRouter } from "next/router";
