@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addUser } from "../actions/UserActions";
 import { useDispatch } from "react-redux";
 import { Button } from "reactstrap";
@@ -11,6 +11,17 @@ const NameInput = props => {
   const router = useRouter();
   const [state, setState] = useState(initialState);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    var el = document.getElementById("button");
+    if (state.username === "") {
+      el.disabled = true;
+      el.classList.remove("buttonEffect");
+    } else {
+      el.disabled = false;
+      el.classList.add("buttonEffect");
+    }
+  });
 
   const changeHandler = e => {
     setState({
@@ -44,7 +55,7 @@ const NameInput = props => {
           />
         </div>
         <div className="row">
-          <Button color="primary" className="button">
+          <Button id="button" color="primary" className="button">
             Oyuna Gir !
           </Button>
         </div>
@@ -63,15 +74,19 @@ const NameInput = props => {
         .button {
           margin: 0 auto;
           margin-top: 40px;
-          transform: translate(0, 0);
+
           overflow: hidden;
-          transition: all 0.3s;
+
           padding: 8px 25px;
         }
-        .button:hover {
+        .buttonEffect {
+          transition: all 0.3s;
+          transform: translate(0, 0);
+        }
+        .buttonEffect:hover {
           transform: scale(1.1, 1.1);
         }
-        .button::before {
+        .buttonEffect::before {
           position: absolute;
           content: "";
           top: 0;
@@ -82,7 +97,7 @@ const NameInput = props => {
           transform: skewX(-30deg);
           transition: left 0.7s ease-in-out;
         }
-        .button:hover::before {
+        .buttonEffect:hover::before {
           left: 120%;
         }
       `}</style>
