@@ -7,12 +7,12 @@ import { motion } from "framer-motion";
 
 const Home = () => {
   const router = useRouter();
-  // useEffect(() => {
-  //   const userId = localStorage.getItem("userId");
-  //   if (userId) {
-  //     router.push("/rooms");
-  //   }
-  // });
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      router.push("/rooms");
+    }
+  });
   return (
     <div>
       <Head>

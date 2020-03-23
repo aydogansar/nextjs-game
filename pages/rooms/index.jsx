@@ -11,21 +11,24 @@ const Rooms = () => {
   const dispatch = useDispatch();
   let ownRoomId = useSelector(state => state.ownRoomId);
   const focus = useSelector(state => state.focusRoomId);
+  let roomId = useSelector(state => state.roomId);
   const router = useRouter();
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
   useEffect(() => {
     ownRoomId = localStorage.getItem("ownRoomId");
+    roomId = localStorage.getItem("roomId");
+
     var el = document.getElementById("joinRoom");
     el.disabled = true;
-    // if (ownRoomId) {
-    //   router.push("/rooms/[id]", "/rooms/" + ownRoomId);
-    // }
+    if (ownRoomId || roomId) {
+      router.push("/rooms/[id]", "/rooms/" + (ownRoomId ? ownRoomId : roomId));
+    }
     if (focus !== null) {
       el.disabled = false;
     }
-  }, [ownRoomId, focus]);
+  }, [ownRoomId, focus, roomId]);
 
   const joinRoomButton = () => {
     dispatch(joinRoom({ roomId: focus }));

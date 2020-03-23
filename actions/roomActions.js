@@ -1,5 +1,11 @@
-import { GET_ROOMS, ADD_ROOM, FOCUS_ROOM } from "./types";
-import { loadDB } from "../lib/db";
+import {
+  GET_ROOMS,
+  ADD_ROOM,
+  FOCUS_ROOM,
+  JOIN_ROOM,
+  GET_USERS_IN_ROOM
+} from "./types";
+import loadDB from "../lib/db";
 
 export const getRooms = () => async dispatch => {
   const db = await loadDB();
@@ -46,6 +52,18 @@ export const addRoom = roomName => async dispatch => {
         type: ADD_ROOM,
         ownRoomId: docRef.id
       });
+      db.firestore()
+        .collection("chatbox")
+        .doc(docRef.id + "chat")
+        .set({
+          users: [
+            {
+              userId,
+              color: "primary"
+            }
+          ],
+          chat: []
+        });
     });
 };
 
@@ -62,8 +80,31 @@ export const joinRoom = ({ roomId }) => async dispatch => {
     .doc(roomId)
     .update({
       users: db.firestore.FieldValue.arrayUnion(user)
+    })
+    .then(() => {
+      localStorage.setItem("roomId", roomId);
+      dispatch({
+        type: JOIN_ROOM,
+        roomId
+      });
     });
-  localStorage.setItem("roomId", roomId);
+  var colors = ["warning", "success", "secondary", "light", "info"];
+  db.firestore()
+    .collection("rooms")
+    .doc(roomId)
+    .onSnapshot(function(doc) {
+      var length = doc.data().users.length;
+      var user = {
+        userId,
+        color: colors[length - 2]
+      };
+      db.firestore()
+        .collection("chatbox")
+        .doc(roomId + "chat")
+        .update({
+          users: db.firestore.FieldValue.arrayUnion(user)
+        });
+    });
 };
 
 export const focusRoom = focus => {
@@ -71,4 +112,25 @@ export const focusRoom = focus => {
     type: FOCUS_ROOM,
     focusRoomId: focus
   };
+};
+
+export const getUsersInRoom = ({ roomId }) => async dispatch => {
+  const db = await loadDB();
+  db.firestore()
+    .collection("rooms")
+    .doc(roomId)
+    .onSnapshot(function(doc) {
+      let users = [];
+      doc.data().users.forEach(user => {
+        users.push({
+          userName: user.userName,
+          userId: user.userId
+        });
+      });
+      dispatch({
+        type: GET_USERS_IN_ROOM,
+        usersInRoom: users,
+        roomName: doc.data().roomName
+      });
+    });
 };

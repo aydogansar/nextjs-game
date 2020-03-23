@@ -3,7 +3,10 @@ import {
   ADD_USER,
   ADD_ROOM,
   FOCUS_ROOM,
-  JOIN_ROOM
+  JOIN_ROOM,
+  GET_USERS_IN_ROOM,
+  SEND_MESSAGE,
+  GET_MESSAGES
 } from "../actions/types";
 import { initialState } from "../store";
 
@@ -30,10 +33,27 @@ const reducer = (state = initialState, action) => {
         ...state,
         focusRoomId: action.focusRoomId
       };
-    case FOCUS_ROOM:
+    case JOIN_ROOM:
       return {
         ...state,
         roomId: action.roomId
+      };
+    case GET_USERS_IN_ROOM:
+      return {
+        ...state,
+        usersInRoom: action.usersInRoom,
+        roomName: action.roomName
+      };
+    case SEND_MESSAGE:
+      return {
+        ...state,
+        messages: [...state.messages, action.message]
+      };
+    case GET_MESSAGES:
+      return {
+        ...state,
+        messages: action.messages,
+        color: action.color
       };
     default:
       return state;

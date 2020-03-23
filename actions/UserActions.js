@@ -1,4 +1,4 @@
-import { loadDB } from "../lib/db";
+import loadDB from "../lib/db";
 import { ADD_USER } from "./types";
 
 export const addUser = username => async dispatch => {
@@ -18,24 +18,15 @@ export const addUser = username => async dispatch => {
         userId: docRef.id
       });
     });
-};
 
-export const getUsers = () => async dispatch => {
-  const db = await loadDB();
+  // db.auth()
+  //   .signInAnonymously()
+  //   .catch(function(error) {
+  //     // Handle Errors here.
+  //     var errorCode = error.code;
+  //     var errorMessage = error.message;
+  //     // ...
+  //   });
 
-  db.firestore()
-    .collection("users")
-    .onSnapshot(snapshot => {
-      let users = [];
-      snapshot.forEach(function(doc) {
-        users.push({
-          id: doc.id,
-          name: doc.data().name
-        });
-      });
-      dispatch({
-        type: "GET_USERS",
-        users
-      });
-    });
+  //invalid/api-key hatası env değişkenleri ile alakalı
 };

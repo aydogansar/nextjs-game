@@ -18,6 +18,19 @@ const Layout = props => (
         color: #fff;
         font-family: "Baloo Da 2", cursive;
       }
+      ::-webkit-scrollbar {
+        width: 3px;
+    }
+    ::-webkit-scrollbar-button {
+        background: #1b262c;
+    }
+    ::-webkit-scrollbar-track-piece {
+        background: #1b262c;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #0f4c81;
+        border-radius:10px;
+    }​
     `}</style>
   </div>
 );

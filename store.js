@@ -9,7 +9,11 @@ export const initialState = {
   rooms: [],
   ownRoomId: "",
   focusRoomId: null,
-  roomId: ""
+  roomId: "",
+  usersInRoom: [],
+  messages: [],
+  color: [],
+  roomName: ""
 };
 /* combineReducer hatası var. Geçici çözüm tek reducer kullanıldı. */
 export function initializeStore(initialState) {
