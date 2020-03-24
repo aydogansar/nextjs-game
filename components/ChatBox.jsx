@@ -3,15 +3,23 @@ import { Badge } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { sendMessage, getMessages } from "../actions/chatActions";
 
-const ChatBox = ({ roomId }) => {
+const ChatBox = ({ roomId, chatMinWidth }) => {
   const dispatch = useDispatch();
-  const [message, setMessage] = useState("");
   const messages = useSelector(state => state.messages);
   const colorMap = useSelector(state => state.color);
+  const [scroll, setScroll] = useState(0);
+  // const [message, setMessage] = useState("");
 
   useEffect(() => {
     dispatch(getMessages({ roomId }));
   }, []);
+
+  useEffect(() => {
+    var el = document.getElementById("messages");
+    setScroll(el.scrollHeight);
+    el.scrollTop = scroll;
+  });
+
   const colorSelect = id => {
     return colorMap
       .filter(c => {
@@ -21,35 +29,41 @@ const ChatBox = ({ roomId }) => {
         return c.color;
       })[0];
   };
-  const changeHandler = e => {
-    setMessage(e.target.value);
-  };
+  // const changeHandler = e => {
+  //   setMessage(e.target.value);
+  // };
   const submitHandler = e => {
     e.preventDefault();
-    dispatch(sendMessage(message, roomId));
-    setMessage("");
+    var el = document.getElementById("text");
+    dispatch(sendMessage(el.value, roomId));
+    el.value = "";
   };
   return (
     <div className="chatBox">
-      <div className="messageBox">
+      <div className="messageBox" id="messages">
         <ul>
-          {messages.map((m, i) => {
-            return (
-              <li key={i}>
-                <Badge color={colorSelect(m.userId)}>{m.userName} :</Badge>
-                <span>{m.message}</span>
-              </li>
-            );
-          })}
+          {messages.length === 0 ? (
+            <li>
+              <span className="text-muted">Mesaj Yok</span>
+            </li>
+          ) : (
+            messages.map((m, i) => {
+              return (
+                <li key={i}>
+                  <Badge color={colorSelect(m.userId)}>{m.userName}</Badge>
+                  <span>{m.message}</span>
+                </li>
+              );
+            })
+          )}
         </ul>
       </div>
       <div className="bottom">
         <form onSubmit={submitHandler}>
           <input
             type="text"
+            id="text"
             className="text"
-            onChange={changeHandler}
-            value={message}
             placeholder="Buraya yaz..."
           />
         </form>
@@ -59,18 +73,19 @@ const ChatBox = ({ roomId }) => {
           display: flex;
           flex-direction: column;
           align-content: space-between;
-          max-width: 40%;
-          min-width: 40%;
+          max-width: 300px;
+          min-width: ${chatMinWidth};
           background: rgba(0, 0, 0, 0.1);
           border: 1px solid #333;
-          overflow: auto;
+          overflow: hidden;
         }
-        .messageBox {
+        #messages {
           display: flex;
           align-self: flex-start;
           flex-direction: column;
-          align-items: flex-start;
-          height: 95%;
+          align-items: flex-end;
+          justify-content: stretch;
+          height: 100%;
           overflow: auto;
           padding: 10px;
         }
@@ -78,23 +93,23 @@ const ChatBox = ({ roomId }) => {
           display: flex;
           flex-wrap: wrap;
           align-items: flex-end;
-          align-content: flex-end;
+          flex-direction: reverse-row;
+
           justify-content: flex-start;
+          width: 100%;
         }
         li {
-          list-style-type: none;
           width: 100%;
+
+          list-style-type: none;
           margin-left: -35px;
         }
         li span {
           margin-left: 10px;
         }
-        .bottom {
-          align-selft: flex-end;
-        }
         .text {
           width: 100%;
-          padding: 5px;
+          padding: 6px;
           outline: none;
           background: #1b262c;
           border: 0;

@@ -7,7 +7,8 @@ export const addUser = username => async dispatch => {
   db.firestore()
     .collection("users")
     .add({
-      name: username
+      name: username,
+      gameId: ""
     })
     .then(docRef => {
       localStorage.setItem("userId", docRef.id);

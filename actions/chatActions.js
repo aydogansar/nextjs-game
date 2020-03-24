@@ -39,6 +39,7 @@ export const getMessages = ({ roomId }) => async dispatch => {
         });
       });
       var color = doc.data().users;
+      localStorage.setItem("color", JSON.stringify(color));
       dispatch({
         type: GET_MESSAGES,
         messages,

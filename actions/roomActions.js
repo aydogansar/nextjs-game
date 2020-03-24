@@ -6,6 +6,7 @@ import {
   GET_USERS_IN_ROOM
 } from "./types";
 import loadDB from "../lib/db";
+import { shuffle } from "./functions";
 
 export const getRooms = () => async dispatch => {
   const db = await loadDB();
@@ -88,7 +89,8 @@ export const joinRoom = ({ roomId }) => async dispatch => {
         roomId
       });
     });
-  var colors = ["warning", "success", "secondary", "light", "info"];
+  const colors = ["warning", "success", "secondary", "light", "info"];
+  const c = shuffle(colors);
   db.firestore()
     .collection("rooms")
     .doc(roomId)
@@ -96,7 +98,7 @@ export const joinRoom = ({ roomId }) => async dispatch => {
       var length = doc.data().users.length;
       var user = {
         userId,
-        color: colors[length - 2]
+        color: c[length - 2]
       };
       db.firestore()
         .collection("chatbox")

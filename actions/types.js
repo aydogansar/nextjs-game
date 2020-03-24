@@ -6,3 +6,4 @@ export const JOIN_ROOM = "JOIN_ROOM";
 export const GET_USERS_IN_ROOM = "GET_USERS_IN_ROOM";
 export const SEND_MESSAGE = "SEND_MESSAGE";
 export const GET_MESSAGES = "GET_MESSAGES";
+export const START_GAME = "START_GAME";

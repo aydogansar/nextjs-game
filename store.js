@@ -13,7 +13,9 @@ export const initialState = {
   usersInRoom: [],
   messages: [],
   color: [],
-  roomName: ""
+  roomName: "",
+  gameId: "",
+  role: ""
 };
 /* combineReducer hatası var. Geçici çözüm tek reducer kullanıldı. */
 export function initializeStore(initialState) {

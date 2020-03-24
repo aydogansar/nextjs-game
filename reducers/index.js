@@ -6,7 +6,8 @@ import {
   JOIN_ROOM,
   GET_USERS_IN_ROOM,
   SEND_MESSAGE,
-  GET_MESSAGES
+  GET_MESSAGES,
+  START_GAME
 } from "../actions/types";
 import { initialState } from "../store";
 
@@ -54,6 +55,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         messages: action.messages,
         color: action.color
+      };
+    case START_GAME:
+      return {
+        ...state,
+        gameId: action.gameId
       };
     default:
       return state;
