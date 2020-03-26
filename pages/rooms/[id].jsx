@@ -27,7 +27,7 @@ const Room = () => {
     const gameId = localStorage.getItem("gameId");
     if (ownRoomId) setOwnRoom(ownRoomId);
     if (gameId) router.push("/game/[id]", "/game/" + gameId);
-  });
+  }, []);
 
   const gameStart = e => {
     e.preventDefault();

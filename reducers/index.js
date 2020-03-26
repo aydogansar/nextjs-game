@@ -7,7 +7,13 @@ import {
   GET_USERS_IN_ROOM,
   SEND_MESSAGE,
   GET_MESSAGES,
-  START_GAME
+  START_GAME,
+  FOCUS_GAMER,
+  GET_GAMERS,
+  GET_VOTES,
+  EXECUTED_GAMER,
+  NOBODY_DIED,
+  GAME_OVER
 } from "../actions/types";
 import { initialState } from "../store";
 
@@ -60,6 +66,31 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         gameId: action.gameId
+      };
+    case FOCUS_GAMER:
+      return {
+        ...state,
+        focusGamerId: action.gamerId
+      };
+    case GET_GAMERS:
+      return {
+        ...state,
+        game: action.game
+      };
+    case GET_VOTES:
+      return {
+        ...state,
+        votes: [...action.votes]
+      };
+    case EXECUTED_GAMER:
+      return {
+        ...state,
+        executedGamer: action.user
+      };
+    case NOBODY_DIED:
+      return {
+        ...state,
+        nobodyDied: action.nobodyDied
       };
     default:
       return state;

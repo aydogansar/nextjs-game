@@ -25,7 +25,6 @@ export const sendMessage = (message, roomId) => async dispatch => {
 };
 export const getMessages = ({ roomId }) => async dispatch => {
   const db = await loadDB();
-  const userId = localStorage.getItem("userId");
   db.firestore()
     .collection("chatbox")
     .doc(roomId + "chat")

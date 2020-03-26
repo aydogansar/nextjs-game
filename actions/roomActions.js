@@ -68,6 +68,9 @@ export const addRoom = roomName => async dispatch => {
     });
 };
 
+const colors = ["warning", "success", "secondary", "light", "info"];
+const c = shuffle(colors);
+
 export const joinRoom = ({ roomId }) => async dispatch => {
   const db = await loadDB();
   const userName = localStorage.getItem("userName");
@@ -89,8 +92,6 @@ export const joinRoom = ({ roomId }) => async dispatch => {
         roomId
       });
     });
-  const colors = ["warning", "success", "secondary", "light", "info"];
-  const c = shuffle(colors);
   db.firestore()
     .collection("rooms")
     .doc(roomId)

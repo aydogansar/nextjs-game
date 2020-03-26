@@ -15,7 +15,17 @@ export const initialState = {
   color: [],
   roomName: "",
   gameId: "",
-  role: ""
+  game: {
+    users: [],
+    role: "",
+    isOver: false,
+    night: false,
+    winner: ""
+  },
+  focusGamerId: "",
+  votes: [],
+  executedGamer: {},
+  nobodyDied: ""
 };
 /* combineReducer hatası var. Geçici çözüm tek reducer kullanıldı. */
 export function initializeStore(initialState) {

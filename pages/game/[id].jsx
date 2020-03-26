@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import ChatBox from "../../components/ChatBox";
+import Role from "../../components/Role";
+import GameDisplay from "../../components/GameDisplay";
+import { useSelector, useDispatch } from "react-redux";
+import { getGamers } from "../../actions/gameActions";
 
 const Game = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { id } = router.query;
+  const game = useSelector(state => state.game);
+
+  useEffect(() => {
+    dispatch(getGamers(id));
+    console.log(game);
+  }, []);
   return (
     <div className="containerM">
       <div className="section">
-        <div className="role"></div>
-        <div className="users"></div>
-        <ChatBox roomId={id} chatMinWidth="0" />
+        <Role role={game.role} />
+        <GameDisplay game={game} gameId={id} />
+        <ChatBox roomId={id} chatMinWidth="300px" />
       </div>
       <style jsx>{`
         .containerM {
@@ -22,13 +33,12 @@ const Game = () => {
           background: rgba(0, 0, 0, 0.1);
           border: 1px solid #333;
           position: absolute;
-          top: 10%;
           right: 15%;
+          top: 10%;
           bottom: 0;
           overflow: auto;
           flex-wrap: wrap;
           flex-direction: column;
-          z-index: 0;
         }
         .section {
           display: flex;

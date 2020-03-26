@@ -93,14 +93,13 @@ const ChatBox = ({ roomId, chatMinWidth }) => {
           display: flex;
           flex-wrap: wrap;
           align-items: flex-end;
-          flex-direction: reverse-row;
-
+          flex-direction: row;
           justify-content: flex-start;
           width: 100%;
         }
         li {
-          width: 100%;
-
+          width: 120%;
+          margin: 1px;
           list-style-type: none;
           margin-left: -35px;
         }
