@@ -15,10 +15,12 @@ const GameDisplay = ({ game, gameId }) => {
     el.classList.add("focus");
     dispatch(focusGamer(id));
   };
+
+  const submitVote = () => {};
   return (
     <div className="containerM">
-      <div id="timer" className="countDown">
-        1 : 00
+      <div id="day" className={game.night ? null : "sunshine"}>
+        {game.night ? "Gece" : "Gündüz"}
       </div>
       <div className="gamers">
         <ul>
@@ -45,9 +47,12 @@ const GameDisplay = ({ game, gameId }) => {
             : null}
         </ul>
       </div>
-      <div id="day" className={game.night ? null : "sunshine"}>
-        {game.night ? "Gece" : "Gündüz"}
+      <div id="submit">
+        <button className="btn btn-primary" onClick={submitVote}>
+          Turu Bitir
+        </button>
       </div>
+
       <style jsx>{`
         .containerM {
           display: flex;
@@ -57,10 +62,13 @@ const GameDisplay = ({ game, gameId }) => {
           height: 100%;
           width: 100%;
         }
-        .countDown {
-          font-size: 32px;
-          margin-top: 10px;
-          font-weight: bold;
+        #submit {
+          width: 100%;
+        }
+        .btn {
+          width: 100%;
+          border-radius: 0;
+          outline: none;
         }
         ul {
           width: 100%;
@@ -110,13 +118,13 @@ const GameDisplay = ({ game, gameId }) => {
         }
         #day {
           padding: 6px;
-          background: rgba(15, 76, 129, 0.3);
+          background: rgba(0, 0, 0, 0.1);
           width: 100%;
           text-align: center;
         }
         .sunshine {
-          box-shadow: 0 0 60px 30px #fff, 0 0 100px 60px #f0f,
-            0 0 140px 90px #0ff;
+          box-shadow: 0 0 60px 30px #fff, 0 0 100px 60px #999,
+            0 0 140px 90px #333;
         }
       `}</style>
     </div>

@@ -36,7 +36,7 @@ const Role = ({ role }) => {
                   <div
                     className="image"
                     style={{
-                      background: `url('${r.image}')`
+                      backgroundImage: `url('${r.image}')`
                     }}
                   ></div>
                   <div

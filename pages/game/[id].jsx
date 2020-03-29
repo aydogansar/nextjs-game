@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import ChatBox from "../../components/ChatBox";
 import Role from "../../components/Role";
 import GameDisplay from "../../components/GameDisplay";
@@ -14,10 +15,12 @@ const Game = () => {
 
   useEffect(() => {
     dispatch(getGamers(id));
-    console.log(game);
   }, []);
   return (
     <div className="containerM">
+      <Head>
+        <title>Game</title>
+      </Head>
       <div className="section">
         <Role role={game.role} />
         <GameDisplay game={game} gameId={id} />

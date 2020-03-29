@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import { useSelector } from "react-redux";
 
 const Layout = props => {
-  const [name, setName] = useState("");
+  const name = useSelector(state => state.username);
+  const [userName, setUserName] = useState("");
+
   useEffect(() => {
-    var userName = localStorage.getItem("userName");
-    setName(userName);
-  }, []);
+    if (name === "") setUserName(localStorage.getItem("userName"));
+  }, [userName]);
   return (
     <div>
       <Head>
@@ -18,7 +20,7 @@ const Layout = props => {
         />
       </Head>
       <div className="header">
-        <span>{name}</span>
+        <span>{name === "" ? userName : name}</span>
       </div>
       {props.children}
       <div className="footer">

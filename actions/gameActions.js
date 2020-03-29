@@ -107,6 +107,7 @@ export const focusGamer = focusId => async dispatch => {
         users
       });
     });
+  localStorage.setItem("focusGamerId", focusId);
   dispatch({
     type: FOCUS_GAMER,
     gamerId: focusId

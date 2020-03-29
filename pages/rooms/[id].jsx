@@ -13,6 +13,7 @@ const Room = () => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.usersInRoom);
   const roomName = useSelector(state => state.roomName);
+  const gameId = useSelector(state => state.gameId);
 
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [ownRoom, setOwnRoom] = useState("");
@@ -20,14 +21,16 @@ const Room = () => {
   const toggle = () => setTooltipOpen(!tooltipOpen);
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
     dispatch(getUsersInRoom({ roomId: id }));
-    dispatch(jumpTheGame(userId));
     const ownRoomId = localStorage.getItem("ownRoomId");
-    const gameId = localStorage.getItem("gameId");
     if (ownRoomId) setOwnRoom(ownRoomId);
-    if (gameId) router.push("/game/[id]", "/game/" + gameId);
   }, []);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    dispatch(jumpTheGame(userId));
+    if (gameId) router.push("/game/[id]", "/game/" + gameId);
+  }, [gameId]);
 
   const gameStart = e => {
     e.preventDefault();
